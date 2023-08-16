@@ -17,8 +17,8 @@ nav{
     padding: 0 0.5em 0 0.5em;
     font-size: 1.1em;
     text-align: center;
-    background-color: #222222aa;
-    color: #fff;
+    background-color: #ccccccaa;
+    color: #222;
     height: 16vh;
     min-height: 5em;
     width: fit-content;
@@ -39,7 +39,7 @@ nav{
 }
 
 .nav-anchor{
-    color: #fff;
+    color: #222;
     text-decoration: none;
     display: flex;
     height: 16vh;
