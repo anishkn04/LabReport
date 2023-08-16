@@ -53,12 +53,18 @@ nav{
     border-collapse: collapse;
     border-radius: 1em;
     color: #ddd;
-    background-color: #ffffff55;
+    text-decoration: none;
+    background-color: #bbbbbb55;
     font-size: 1.1em;
     margin: auto 0.5em;
     padding: 0.6em;
     align-self: flex-end;
     width: 8em;
+}
+
+#button:hover{
+    backdrop-filter: blur(2px);
+    color: #222;
 }
 
 .heading{

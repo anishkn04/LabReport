@@ -32,13 +32,16 @@
         <form id="reportform" action="<?php echo $_SERVER['PHP_SELF']; ?>" method="POST">
             <div class="demo">
                 <label for="name" class="d_label">Name: </label><input type="text" name="name" id="name">
+                <label for="lab_no" class="d_label">Lab Number: </label><input type="number" name="lab_no" id="lab_no">
                 <label for="age" class="d_label">Age: </label><input type="text" name="age" id="age">
+                <label for="rec_on" class="d_label">Received on: </label><input type="date" name="rec_on" id="rec_on">
                 <label for="sex" class="d_label">Sex: </label>
                 <select name="sex" id="sex">
                     <option value="Male">Male</option>
                     <option value="Female">Female</option>
                     <option value="">None</option>
                 </select>
+                <label for="rep_on" class="d_label">Report on: </label><input type="date" name="rep_on" id="rep_on">
                 <label for="ref_by" class="d_label">Referred By: </label>
                 <select name="ref_by" id="ref_by">
                     <option value="Self">Self</option>
@@ -48,9 +51,6 @@
                     <option value="Pratisma Pharmacy">Pratisma</option>
                     <option value="Panitanki">Panitanki</option>
                 </select>
-                <label for="lab_no" class="d_label">Lab Number: </label><input type="number" name="lab_no" id="lab_no">
-                <label for="rec_on" class="d_label">Received on: </label><input type="date" name="rec_on" id="rec_on">
-                <label for="rep_on" class="d_label">Report on: </label><input type="date" name="rep_on" id="rep_on">
                 <label for="specimen" class="d_label">Specimen: </label>
                 <div class="specimen-boxes">
                 <input type="checkbox" name="specimen" id="blood_s" value="blood"><label for="blood">Blood</label>
