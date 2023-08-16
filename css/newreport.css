@@ -3,11 +3,11 @@ body{
     display: flex;
     flex-flow: column nowrap;
     width: fit-content;
-    background-image: url("../images/website-logo.png");
+    background-image: url("../images/background.jpg");
     background-attachment: fixed;
     background-repeat: no-repeat;
     background-position: 50%;
-    background-size: contain;
+    background-size: cover;
 }
 
 main{
@@ -25,9 +25,9 @@ main{
     width: 90%;
 }
 
-.demo, .choices, .report, .reports > *{
-    background-color: #22222255;
-    color: #ddd;
+.reports > *, .demo, .choices, .report{
+    background-color: #aaaaaabb;
+    color: #222;
     width: 95%;
     margin-top: 2em;
     padding: 2em;
@@ -39,19 +39,21 @@ main{
 }
 
 .demo{
-    display: flex;
-    align-items: center;
-    justify-content: flex-start;
-    flex-flow: column wrap;
-    gap: 1em;
-}
-
-.demo{
     display: grid;
     grid-template-columns: repeat(4, 1fr);
     grid-auto-rows: minmax(30px, auto);
-    column-gap: 5em;
+    column-gap: minmax(1em, auto);
     row-gap: 2em;
+}
+
+.demo input:not(input[type="checkbox"]), .demo select{
+    width: 90%;
+    border-radius: 0.3em;
+    border: 0.5px solid #222;
+}
+
+.demo input, .demo select{
+    text-align: center;
 }
 
 .choices{
@@ -66,9 +68,14 @@ main{
 }
 
 .reports > * {
-    display: grid;
+    display: none;
     grid-template-columns: 2fr repeat(2, 1fr);
     grid-auto-rows: minmax(30px, auto);
     column-gap: 3em;
     row-gap: 1em;
+}
+
+.data_input{
+    text-align: center;
+    width: 35%;
 }

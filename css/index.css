@@ -8,11 +8,10 @@ body{
     display: flex;
     flex-flow: column nowrap;
     width: fit-content;
-    background-image: url("../images/website-logo.png");
+    background-image: url("../images/background.jpg");
     background-attachment: fixed;
     background-repeat: no-repeat;
-    background-position: 50%;
-    background-size: contain;
+    background-size: cover;
 }
 
 main{
@@ -27,7 +26,7 @@ main{
 
 .contents{
     display: flex;
-    background-color: #22222255;
+    background-color: #eeeeee22;
     width: 95%;
     margin-top: 2em;
     padding: 2em;
@@ -47,15 +46,15 @@ main{
     font-size: 1.5em;
     width: 100%;
     text-align: center;
-    color: #ddd;
+    color: #222;
 }
 
 .content{
     flex: 20em;
-    background-color: #22222255;
+    background-color: #99999955;
     box-shadow: -10px 10px 4px rgba(0, 0, 0, 0.25), inset 0px 4px 4px rgba(150, 150, 150, 0.25);
     backdrop-filter: blur(2px); 
-    color: #ddd;
+    color: #222;
     height: fit-content;
     min-height: 20em;
     border-radius: 1em;
