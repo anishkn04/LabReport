@@ -11,5 +11,5 @@
         <li class="nav-item" id="nav-item-3"><a href="" class="nav-anchor">View Reports</a></li>
         <li class="nav-item" id="nav-item-4"><a href="" class="nav-anchor">About Us</a></li>
     </ul>
-    <button id="button">Login</button>
+    <a id="button" href="../php/login.php">Login</a>
 </nav>

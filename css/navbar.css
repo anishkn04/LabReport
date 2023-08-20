@@ -53,12 +53,18 @@ nav{
     border-collapse: collapse;
     border-radius: 1em;
     color: #ddd;
-    background-color: #ffffff55;
+    text-decoration: none;
+    background-color: #bbbbbb55;
     font-size: 1.1em;
     margin: auto 0.5em;
     padding: 0.6em;
     align-self: flex-end;
     width: 8em;
+}
+
+#button:hover{
+    backdrop-filter: blur(2px);
+    color: #222;
 }
 
 .heading{
@@ -70,9 +76,9 @@ nav{
 }
 
 .nav-anchor:hover{
-    transform: translate(0, 10%);
+    transform: translate(-0.1em, 0.2em);
     border-radius: 0 0 1em 1em;
     /* background-color: #222222aa; */
-    transition: transform 0.2s ease-in-out;
+    transition: transform 0.2s cubic-bezier(0.46, 0.03, 0.52, 0.96);
 }
 /* } */
