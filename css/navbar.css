@@ -76,9 +76,9 @@ nav{
 }
 
 .nav-anchor:hover{
-    transform: translate(0, 10%);
+    transform: translate(-0.1em, 0.2em);
     border-radius: 0 0 1em 1em;
     /* background-color: #222222aa; */
-    transition: transform 0.2s ease-in-out;
+    transition: transform 0.2s cubic-bezier(0.46, 0.03, 0.52, 0.96);
 }
 /* } */
