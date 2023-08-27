@@ -26,7 +26,7 @@ main{
 }
 
 .reports > *, .demo, .choices, .report{
-    background-color: #aaaaaabb;
+    background-color: #ccccccbb;
     color: #222;
     width: 95%;
     margin-top: 2em;
@@ -78,4 +78,16 @@ main{
 .data_input{
     text-align: center;
     width: 35%;
+}
+
+#submit{
+    width: 25%;
+    text-align: center;
+    margin: 1em auto;
+    display: block;
+    height: 3em;
+    border: 0.1px solid #eee;
+    border-radius: 1em;
+    box-shadow: -10px 10px 4px rgba(0, 0, 0, 0.25), inset 0px 4px 4px rgba(150, 150, 150, 0.25);
+    backdrop-filter: blur(2px);
 }

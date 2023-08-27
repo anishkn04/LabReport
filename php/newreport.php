@@ -45,20 +45,20 @@
                     </select>
                     <label for="specimen" class="d_label">Specimen: </label>
                     <div class="specimen-boxes">
-                        <input type="checkbox" name="specimen" id="blood_s" value="blood" /><label
+                        <input type="checkbox" name="specimen[]" id="blood_s" value="blood" /><label
                             for="blood">Blood</label>
-                        <input type="checkbox" name="specimen" id="urine_s" value="urine" /><label
+                        <input type="checkbox" name="specimen[]" id="urine_s" value="urine" /><label
                             for="urine">Urine</label>
-                        <input type="checkbox" name="specimen" id="stool_s" value="stool" /><label
+                        <input type="checkbox" name="specimen[]" id="stool_s" value="stool" /><label
                             for="stool">Stool</label>
                     </div>
                 </div>
                 <div class="choices">
-                    <label for="c_biochem">Biochemistry Test</label><input type="checkbox" id="c_biochem"
+                    <label for="c_biochem">Biochemistry Test</label><input name="test_list" type="checkbox" id="c_biochem"
                         onclick="hide(id)" />
-                    <label for="c_stool">Stool RE</label><input type="checkbox" id="c_stool" onclick="hide(id)" />
-                    <label for="c_urine">Urine RE</label><input type="checkbox" id="c_urine" onclick="hide(id)" />
-                    <label for="c_hematology">Hematology Test</label><input type="checkbox" id="c_hematology"
+                    <label for="c_stool">Stool RE</label><input name="test_list" type="checkbox" id="c_stool" onclick="hide(id)" />
+                    <label for="c_urine">Urine RE</label><input name="test_list" type="checkbox" id="c_urine" onclick="hide(id)" />
+                    <label for="c_hematology">Hematology Test</label><input name="test_list" type="checkbox" id="c_hematology"
                         onclick="hide(id)" />
                 </div>
                 <div class="reports">
@@ -191,6 +191,7 @@
                         <text class="ref_value"></text>
                     </div>
                 </div>
+                <input type="submit" name="submit" value="Submit" id="submit">
             </form>
         </div>
     </main>
@@ -198,3 +199,9 @@
 </body>
 
 </html>
+
+<?php
+
+include("../php/connection.php")
+
+?>
