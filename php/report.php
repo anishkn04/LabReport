@@ -1,7 +1,14 @@
 <?php
-
 include("../php/connection.php");
-if (isset($_POST['submit'])) {
+$id        = $_GET['report_id'];
+$sel_sql   = "SELECT * FROM `patients`
+JOIN biochem ON patient.report_id=biochem.report_id
+JOIN urine_re ON patient.report_id=urine_re.report_id
+JOIN stool_re ON patient.report_id=stool_re.report_id
+WHERE `report_id`='$id'";
+$sel_query = mysqli_query($conn, $sel_sql);
+$row       = mysqli_fetch_assoc($sel_query);
+if (isset($_POST['update'])) {
     $server   = "localhost";
     $user     = "root";
     $password = "";
@@ -111,29 +118,53 @@ if (isset($_POST['submit'])) {
         <div class="report">
             <form id="reportform" action="<?php echo $_SERVER['PHP_SELF']; ?>" method="POST">
                 <div class="demo">
-                    <label for="name" class="d_label">Name: </label><input type="text" name="name" id="name" />
+                    <label for="name" class="d_label">Name: </label><input type="text" name="name" id="name"
+                        value="<?php echo ($row['name']) ?>" />
                     <label for="report_id" class="d_label">Lab No.: </label><input type="text" name="report_id"
-                        id="report_id" />
-                    <label for="age" class="d_label">Age: </label><input type="text" name="age" id="age" />
+                        id="report_id" value="<?php echo ($row['report_id']) ?>" />
+                    <label for="age" class="d_label">Age: </label><input type="text" name="age" id="age"
+                        value="<?php echo ($row['age']) ?>" />
                     <label for="rec_on" class="d_label">Received on: </label><input type="date" name="rec_on"
-                        id="rec_on" />
+                        id="rec_on" value="<?php echo ($row['received_on']) ?>" />
                     <label for="sex" class="d_label">Sex: </label>
                     <select name="sex" id="sex">
-                        <option value="Male">Male</option>
-                        <option value="Female">Female</option>
-                        <option value="">None</option>
+                        <option value="Male" <?php if ($row['sex'] == "Male") {
+                            echo ("selected");
+                        } ?>>
+                            Male</option>
+                        <option value="Female" <?php if ($row['sex'] == "Female") {
+                            echo ("selected");
+                        } ?>>Female
+                        </option>
+                        <option value="" <?php if ($row['sex'] == "") {
+                            echo ("selected");
+                        } ?>>None
+                        </option>
                     </select>
-                    <label for="rep_on" class="d_label">Report on: </label><input type="date" name="rep_on"
-                        id="rep_on" />
+                    <label for="rep_on" class="d_label">Report on: </label><input type="date" name="rep_on" id="rep_on"
+                        value="<?php echo ($row['report_on']) ?>" />
                     <label for="ref_by" class="d_label">Referred By:
                     </label>
                     <select name="ref_by" id="ref_by">
-                        <option value="Self">Self</option>
-                        <option value="PlaceHolder 1" Pathology Tests>PH1</option>
-                        <option value="PlaceHolder 2">PH2</option>
-                        <option value="PlaceHolder 3">PH3</option>
-                        <option value="PlaceHolder 4">PH4</option>
-                        <option value="PlaceHolder 5">PH5</option>
+                        <option value="Self" <?php if ($row['referred_by'] == "Self") {
+                            echo ("selected");
+                        } ?>>Self
+                        </option>
+                        <option value="PlaceHolder 1" <?php if ($row['referred_by'] == "PlaceHolder 1") {
+                            echo ("selected");
+                        } ?>>PH1</option>
+                        <option value="PlaceHolder 2" <?php if ($row['referred_by'] == "PlaceHolder 2") {
+                            echo ("selected");
+                        } ?>>PH2</option>
+                        <option value="PlaceHolder 3" <?php if ($row['referred_by'] == "PlaceHolder 3") {
+                            echo ("selected");
+                        } ?>>PH3</option>
+                        <option value="PlaceHolder 4" <?php if ($row['referred_by'] == "PlaceHolder 4") {
+                            echo ("selected");
+                        } ?>>PH4</option>
+                        <option value="PlaceHolder 5" <?php if ($row['referred_by'] == "PlaceHolder 5") {
+                            echo ("selected");
+                        } ?>>PH5</option>
                     </select>
                     <!-- <label for="specimen[]" class="d_label">Specimen: </label>
                     <div class="specimen-boxes">
@@ -154,17 +185,17 @@ if (isset($_POST['submit'])) {
                         onclick="hide(id)" />
                 </div>
                 <div class="reports">
-                    <div id="biochem" hidden>
+                    <div id="biochem">
                         <h2>Biochemistry Test:</h2>
                         <h2>Result:</h2>
                         <h2>Reference Value:</h2>
                         <label for="sugar_fasting">Blood Glucose(F)</label><span><input type="text" class="data_input"
-                                name="sugar_fasting" />mg/dl</span>
+                                name="sugar_fasting" value="<?php echo ($row['sugar_fasting']) ?>" />mg/dl</span>
                         <text class="ref_value">70-110 mg/dl</text>
-                        <label for="sugar_pp">Blood Glucose(PP)</label><span><input type="text" class="data_input"
+                        <label for="sugar_pp">Blood Glucose(PP)</label><span><input type="text" class="data_input" value="<?php echo ($row['sugar_pp']) ?>"
                                 name="sugar_pp" />mg/dl</span>
                         <text class="ref_value"></text>
-                        <label for="sugar_random">Blood Glucose(R)</label><span><input type="text" class="data_input"
+                        <label for="sugar_random">Blood Glucose(R)</label><span><input value="<?php echo ($row['sugar_random']) ?>" type="text" class="data_input"
                                 name="sugar_random" />mg/dl</span>
                         <text class="ref_value"></text>
                         <label for="uric_acid">Serum Uric Acid</label><span><input type="text" class="data_input"
@@ -275,7 +306,7 @@ if (isset($_POST['submit'])) {
                         <text class="ref_value"></text>
                     </div>
                 </div>
-                <input type="submit" name="submit" value="Submit" id="submit" onclick=nullCheck()>
+                <input type="submit" name="update" value="Update" id="submit" onclick=nullCheck()>
             </form>
         </div>
     </main>
