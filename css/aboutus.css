@@ -1,0 +1,45 @@
+*{
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body{
+    background: fixed;
+    background-repeat: no-repeat;
+    background: linear-gradient(120deg, #71a9c4, #8FA3AE);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+}
+
+main{
+    height:  60%;
+    width:  60%;
+    background-size: contain;
+    background-repeat: no-repeat;
+    box-shadow: -10px 10px 4px rgba(0, 0, 0, 0.25), inset 0px 4px 4px rgba(150, 150, 150, 0.25);
+    backdrop-filter: blur(2em);
+    background-color: #cccccc99;
+    border-radius: 2em;
+    align-items: center;
+    text-align: center;
+    padding: 3em;
+}
+
+.contact_items{
+    margin: 1em auto;
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+    row-gap: 0.5em;
+}
+
+.icon{
+    height: 3em;
+    width: auto;
+    margin: auto;
+}
+span{
+    margin: auto;
+}

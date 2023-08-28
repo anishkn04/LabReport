@@ -14,7 +14,9 @@
 
 <body>
     <?php include "../php/navbar.php";
-    include("../php/connection.php");
+    if(!isset($_SESSION['username'])){
+        header("Location:../php/login.php");
+    }
     $server   = "localhost";
     $user     = "root";
     $password = "";
@@ -45,8 +47,8 @@
             <span><?php echo($row['received_on']); ?></span>
             <span><?php echo($row['report_on']); ?></span>
             <span>
-                <a class="table_link" href="#">View Report</a>
-                <a class="table_link" href="#">Delete</a>
+                <a class="table_link" href="../php/report.php?report_id=<?php echo($row['report_id']) ?>">View Report</a>
+                <a class="table_link" href="../php/delete.php?report_id=<?php echo($row['report_id']) ?>">Delete</a>
             </span>
         <?php }
         }else{

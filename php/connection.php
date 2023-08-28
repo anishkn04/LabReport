@@ -1,5 +1,5 @@
 <?php
-
+session_start();
 $server   = "localhost";
 $user     = "root";
 $password = "";
@@ -28,6 +28,13 @@ if (!$conn)
     echo ("<script>alert('Database Connection Error!')</script>");
 
 $create_table_sql   = "
+CREATE TABLE IF NOT EXISTS `admin`(
+    admin_id integer auto_increment primary key,
+    email varchar(50) not null,
+    username varchar(50) not null,
+    password varchar(50) not null
+);
+
 CREATE TABLE IF NOT EXISTS `patient`( 
     report_id integer NOT NULL auto_increment primary key not null,
     name varchar(50),
@@ -51,7 +58,7 @@ CREATE TABLE IF NOT EXISTS `biochem`(
     phosphorus varchar(20),
     micro_albumin varchar(20),
     hba1c varchar(20),
-    foreign key (report_id) REFERENCES patient(report_id) ON DELETE CASCADE
+    foreign key (report_id) REFERENCES patient(report_id) ON DELETE CASCADE ON UPDATE CASCADE
 );
 
 CREATE TABLE IF NOT EXISTS `stool_re`(
@@ -65,7 +72,7 @@ CREATE TABLE IF NOT EXISTS `stool_re`(
     mucus varchar(20),
     stool_pus_cell varchar(20),
     stool_rbc varchar(20),
-    foreign key (report_id) REFERENCES patient(report_id) ON DELETE CASCADE
+    foreign key (report_id) REFERENCES patient(report_id) ON DELETE CASCADE ON UPDATE CASCADE
 );
 
 CREATE TABLE IF NOT EXISTS `urine_re`(
@@ -88,7 +95,7 @@ CREATE TABLE IF NOT EXISTS `urine_re`(
     ua_crystals varchar(20),
     urates varchar(20),
     t_vaginalis varchar(20),
-    foreign key (report_id) REFERENCES patient(report_id) ON DELETE CASCADE
+    foreign key (report_id) REFERENCES patient(report_id) ON DELETE CASCADE ON UPDATE CASCADE
 );
 ";
 $create_table_query = mysqli_multi_query($conn, $create_table_sql);

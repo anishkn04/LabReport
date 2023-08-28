@@ -29,4 +29,5 @@ main{
 .row{
     display: grid;
     grid-template-columns: repeat(8, 1fr);
+    row-gap: 1em;
 }

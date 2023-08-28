@@ -1,20 +1,19 @@
 <?php
-include("../php/connection.php");
+
+$server    = "localhost";
+$user      = "root";
+$password  = "";
+$database  = "project";
+$conn      = mysqli_connect($server, $user, $password, $database);
 $id        = $_GET['report_id'];
-$sel_sql   = "SELECT * FROM `patients`
+$sel_sql   = "SELECT * FROM `patient`
 JOIN biochem ON patient.report_id=biochem.report_id
 JOIN urine_re ON patient.report_id=urine_re.report_id
 JOIN stool_re ON patient.report_id=stool_re.report_id
-WHERE `report_id`='$id'";
+WHERE patient.report_id='$id'";
 $sel_query = mysqli_query($conn, $sel_sql);
 $row       = mysqli_fetch_assoc($sel_query);
 if (isset($_POST['update'])) {
-    $server   = "localhost";
-    $user     = "root";
-    $password = "";
-    $database = "project";
-    $conn     = mysqli_connect($server, $user, $password, $database);
-
     $name      = $_POST['name'];
     $age       = (int) $_POST['age'];
     $report_id = (int) $_POST['report_id'];
@@ -60,30 +59,30 @@ if (isset($_POST['update'])) {
     $urates          = $_POST['urates'];
     $t_vaginalis     = $_POST['t_vaginalis'];
 
-    $insert_sql1   = "INSERT INTO `patient`( `report_id`, `name`,`age`,`sex`,`referred_by`,`received_on`,`report_on`)
-    VALUES('$report_id', '$name','$age','$sex', '$ref_by', '$rec_on', '$rep_on')";
+    $insert_sql1   = "UPDATE `patient`
+    SET `name` = '$name',`age` = '$age',`sex` = '$sex',`referred_by` = '$ref_by',`received_on` = '$rec_on',`report_on` = '$rep_on'
+    WHERE `patient`.`report_id` = '$report_id';";
     $insert_query1 = mysqli_query($conn, $insert_sql1);
     if (!$insert_query1)
         echo ("<script>alert('Barbaad!');</script>");
 
-    $insert_sql2   = "INSERT INTO biochem ( report_id, sugar_fasting, sugar_pp, sugar_random, uric_acid, serum_amylase, calcium, phosphorus, micro_albumin, hba1c)
-    VALUES ('$report_id', '$sugar_fasting', '$sugar_pp', '$sugar_random', '$uric_acid', '$serum_amylase', '$calcium', '$phosphorus', '$micro_albumin', '$hba1c' );";
+    $insert_sql2   = "UPDATE `biochem`
+    SET `sugar_fasting` = '$sugar_fasting',`sugar_pp` = '$sugar_pp',`sugar_random` = '$sugar_random',`uric_acid` = '$uric_acid',`serum_amylase` = '$serum_amylase',`calcium` = '$calcium',`phosphorus` = '$phosphorus',`micro_albumin` = '$micro_albumin',`hba1c` = '$hba1c'
+    WHERE `biochem`.`report_id` = '$report_id';";
     $insert_query2 = mysqli_query($conn, $insert_sql2);
     if (!$insert_query2)
         echo ("<script>alert('Barbaad!');</script>");
 
-    $insert_sql4   = "INSERT INTO stool_re (report_id, stool_color, consistency, helminthic_parasite, protozoa_parasite, undigested_food, mucus, stool_pus_cell, stool_rbc
-    )
-    VALUES ('$report_id', '$stool_color', '$consistency', '$helminthic_parasite', '$protozoa_parasite', '$undigested_food', '$mucus', '$stool_pus_cell', '$stool_rbc'
-    );";
+    $insert_sql4   = "UPDATE `stool_re`
+    SET `stool_color` = '$stool_color',`consistency` = '$consistency',`helminthic_parasite` = '$helminthic_parasite',`protozoa_parasite` = '$protozoa_parasite',`undigested_food` = '$undigested_food',`mucus` = '$mucus',`stool_pus_cell` = '$stool_pus_cell',`stool_rbc` = '$stool_rbc'
+    WHERE `stool_re`.`report_id` = '$report_id';";
     $insert_query4 = mysqli_query($conn, $insert_sql4);
     if (!$insert_query4)
         echo ("<script>alert('Barbaad!');</script>");
-    $insert_sql5 = "INSERT INTO urine_re ( report_id, urine_color, transparency, reaction, albumin, sugar, chyle, bile_pigment, urobilinogen, bile_salt, urine_rbc, urine_pus_cell, epithelial_cell, ketone_body, casts, ua_crystals, urates, t_vaginalis
-    )
-    VALUES ('$report_id', '$urine_color', '$transparency', '$reaction', '$albumin', '$sugar', '$chyle', '$bile_pigment', '$urobilinogen', '$bile_salt', '$urine_rbc', '$urine_pus_cell', '$epithelial_cell', '$ketone_body', '$casts', '$ua_crystals', '$urates', '$t_vaginalis'
-    );";
 
+    $insert_sql5 = "UPDATE `urine_re`
+    SET `urine_color` = '$urine_color',`transparency` = '$transparency',`reaction` = '$reaction',`albumin` = '$albumin',`sugar` = '$sugar',`chyle` = '$chyle',`bile_pigment` = '$bile_pigment',`urobilinogen` = '$urobilinogen',`bile_salt` = '$bile_salt',`urine_rbc` = '$urine_rbc',`urine_pus_cell` = '$urine_pus_cell',`epithelial_cell` = '$epithelial_cell',`ketone_body` = '$ketone_body',`casts` = '$casts',`ua_crystals` = '$ua_crystals',`urates` = '$urates',`t_vaginalis` = '$t_vaginalis'
+    WHERE `urine_re`.`report_id` = '$report_id';";
     $insert_query5 = mysqli_query($conn, $insert_sql5);
     if (!$insert_query5)
         echo ("<script>alert('Barbaad!');</script>");
@@ -113,7 +112,11 @@ if (isset($_POST['update'])) {
 </head>
 
 <body>
-    <?php include "../php/navbar.php" ?>
+    <?php include "../php/navbar.php";
+    if(empty($_SESSION['username'])){
+        header("Location:../php/login.php");
+    }
+    ?>
     <main>
         <div class="report">
             <form id="reportform" action="<?php echo $_SERVER['PHP_SELF']; ?>" method="POST">
@@ -192,29 +195,35 @@ if (isset($_POST['update'])) {
                         <label for="sugar_fasting">Blood Glucose(F)</label><span><input type="text" class="data_input"
                                 name="sugar_fasting" value="<?php echo ($row['sugar_fasting']) ?>" />mg/dl</span>
                         <text class="ref_value">70-110 mg/dl</text>
-                        <label for="sugar_pp">Blood Glucose(PP)</label><span><input type="text" class="data_input" value="<?php echo ($row['sugar_pp']) ?>"
-                                name="sugar_pp" />mg/dl</span>
+                        <label for="sugar_pp">Blood Glucose(PP)</label><span><input type="text" class="data_input"
+                                value="<?php echo ($row['sugar_pp']) ?>" name="sugar_pp" />mg/dl</span>
                         <text class="ref_value"></text>
-                        <label for="sugar_random">Blood Glucose(R)</label><span><input value="<?php echo ($row['sugar_random']) ?>" type="text" class="data_input"
+                        <label for="sugar_random">Blood Glucose(R)</label><span><input
+                                value="<?php echo ($row['sugar_random']) ?>" type="text" class="data_input"
                                 name="sugar_random" />mg/dl</span>
                         <text class="ref_value"></text>
-                        <label for="uric_acid">Serum Uric Acid</label><span><input type="text" class="data_input"
+                        <label for="uric_acid">Serum Uric Acid</label><span><input
+                                value="<?php echo ($row['uric_acid']) ?>" type="text" class="data_input"
                                 name="uric_acid" />mg/dl</span>
                         <text class="ref_value"></text>
-                        <label for="serum_amylase">Serum Amylase</label><span><input type="text" class="data_input"
+                        <label for="serum_amylase">Serum Amylase</label><span><input
+                                value="<?php echo ($row['serum_amylase']) ?>" type="text" class="data_input"
                                 name="serum_amylase" />mg/dl</span>
                         <text class="ref_value"></text>
-                        <label for="" calcium>Serum Calcium</label><span><input type="text" class="data_input"
+                        <label for="calcium" calcium>Serum Calcium</label><span><input
+                                value="<?php echo ($row['calcium']) ?>" type="text" class="data_input"
                                 name="calcium" />mg/dl</span>
                         <text class="ref_value"></text>
-                        <label for="phosphorus">Serum Phosphorus</label><span><input type="text" class="data_input"
+                        <label for="phosphorus">Serum Phosphorus</label><span><input type="text"
+                                value="<?php echo ($row['phosphorus']) ?>" class="data_input"
                                 name="phosphorus" />mg/dl</span>
                         <text class="ref_value"></text>
                         <label for="micro_albumin">Urine Micro-Albumin</label><span><input type="text"
-                                class="data_input" name="micro_albumin" />mg/dl</span>
+                                value="<?php echo ($row['micro_albumin']) ?>" class="data_input"
+                                name="micro_albumin" />mg/dl</span>
                         <text class="ref_value"></text>
-                        <label for="ba1c">Glycosylated Hb(HbA1C)</label><span><input type="text" class="data_input"
-                                name="hba1c" />mg/dl</span>
+                        <label for="hba1c">Glycosylated Hb(HbA1C)</label><span><input type="text" class="data_input"
+                                value="<?php echo ($row['hba1c']) ?>" name="hba1c" />mg/dl</span>
                         <text class="ref_value"></text>
                     </div>
                     <div id="stool">
@@ -222,30 +231,32 @@ if (isset($_POST['update'])) {
                         <h2>Result: </h2>
                         <h2>Reference Value: </h2>
                         <label for="stool_color">Color :</label><span><input type="text" class="data_input"
-                                name="stool_color">mg/dl</span>
+                                value="<?php echo ($row['stool_color']) ?>" name="stool_color">mg/dl</span>
                         <text class="ref_value"></text>
                         <label for="consistency">Consistency:</label><span><input type="text" class="data_input"
-                                name="consistency">mg/dl</span>
+                                value="<?php echo ($row['consistency']) ?>" name="consistency">mg/dl</span>
                         <text class="ref_value"></text>
                         <label for="helminthic_parasite">Helminthic
-                            Parasite:</label><span><input type="text" class="data_input"
-                                name="helminthic_parasite">mg/dl</span>
+                            Parasite:</label><span><input value="<?php echo ($row['helminthic_parasite']) ?>"
+                                type="text" class="data_input" name="helminthic_parasite">mg/dl</span>
                         <text class="ref_value"></text>
-                        <label for="protozoa_parasite">Protozoa Parasite:</label><span><input type="text"
-                                class="data_input" name="protozoa_parasite">mg/dl</span>
+                        <label for="protozoa_parasite">Protozoa Parasite:</label><span><input
+                                value="<?php echo ($row['protozoa_parasite']) ?>" type="text" class="data_input"
+                                name="protozoa_parasite">mg/dl</span>
                         <text class="ref_value"></text>
                         <label for="undigested_food">Undigested Food
-                            Particles:</label><span><input type="text" class="data_input"
-                                name="undigested_food">mg/dl</span>
+                            Particles:</label><span><input value="<?php echo ($row['undigested_food']) ?>" type="text"
+                                class="data_input" name="undigested_food">mg/dl</span>
                         <text class="ref_value"></text>
-                        <label for="mucus">Mucus: </label><span><input type="text" class="data_input"
-                                name="mucus">mg/dl</span>
+                        <label for="mucus">Mucus: </label><span><input value="<?php echo ($row['mucus']) ?>" type="text"
+                                class="data_input" name="mucus">mg/dl</span>
                         <text class="ref_value"></text>
-                        <label for="stool_pus_cell">Pus Cell:</label><span><input type="text" class="data_input"
+                        <label for="stool_pus_cell">Pus Cell:</label><span><input
+                                value="<?php echo ($row['stool_pus_cell']) ?>" type="text" class="data_input"
                                 name="stool_pus_cell">mg/dl</span>
                         <text class="ref_value"></text>
-                        <label for="stool_rbc">RBC:</label><span><input type="text" class="data_input"
-                                name="stool_rbc">mg/dl</span>
+                        <label for="stool_rbc">RBC:</label><span><input value="<?php echo ($row['stool_rbc']) ?>"
+                                type="text" class="data_input" name="stool_rbc">mg/dl</span>
                         <text class="ref_value"></text>
 
                     </div>
@@ -254,54 +265,62 @@ if (isset($_POST['update'])) {
                         <h2>Result: </h2>
                         <h2>Reference Value: </h2>
                         <label for="urine_color">Color: Light Yellow</label><span><input type="text" class="data_input"
-                                name="urine_color">mg/dl</span>
+                                value="<?php echo ($row['urine_color']) ?>" name="urine_color">mg/dl</span>
                         <text class="ref_value"></text>
                         <label for="transparency">Transparency: Clear</label><span><input type="text" class="data_input"
-                                name="transparency">mg/dl</span>
+                                value="<?php echo ($row['transparency']) ?>" name="transparency">mg/dl</span>
                         <text class="ref_value"></text>
-                        <label for="reaction">Reaction: Acidic</label><span><input type="text" class="data_input"
+                        <label for="reaction">Reaction: Acidic</label><span><input
+                                value="<?php echo ($row['reaction']) ?>" type="text" class="data_input"
                                 name="reaction">mg/dl</span>
                         <text class="ref_value"></text>
-                        <label for="albumin">Albumin: Nil</label><span><input type="text" class="data_input"
-                                name="albumin">mg/dl</span>
+                        <label for="albumin">Albumin: Nil</label><span><input type="text"
+                                value="<?php echo ($row['albumin']) ?>" class="data_input" name="albumin">mg/dl</span>
                         <text class="ref_value"></text>
-                        <label for="sugar">Sugar: Nil</label><span><input type="text" class="data_input"
-                                name="sugar">mg/dl</span>
+                        <label for="sugar">Sugar: Nil</label><span><input type="text"
+                                value="<?php echo ($row['sugar']) ?>" class="data_input" name="sugar">mg/dl</span>
                         <text class="ref_value"></text>
                         <label for="chyle">Chyle:</label><span><input type="text" class="data_input"
-                                name="chyle">mg/dl</span>
+                                value="<?php echo ($row['chyle']) ?>" name="chyle">mg/dl</span>
                         <text class="ref_value"></text>
-                        <label for="bile_pigment">Bile Pigment:</label><span><input type="text" class="data_input"
+                        <label for="bile_pigment">Bile Pigment:</label><span><input
+                                value="<?php echo ($row['bile_pigment']) ?>" type="text" class="data_input"
                                 name="bile_pigment">mg/dl</span>
                         <text class="ref_value"></text>
-                        <label for="urobilinogen">Urobilinogen:</label><span><input type="text" class="data_input"
+                        <label for="urobilinogen">Urobilinogen:</label><span><input
+                                value="<?php echo ($row['urobilinogen']) ?>" type="text" class="data_input"
                                 name="urobilinogen">mg/dl</span>
                         <text class="ref_value"></text>
                         <label for="bile_salt">Bile Salt:</label><span><input type="text" class="data_input"
-                                name="bile_salt">mg/dl</span>
+                                value="<?php echo ($row['bile_salt']) ?>" name="bile_salt">mg/dl</span>
                         <text class="ref_value"></text>
-                        <label for="urine_rbc">RBC:</label><span><input type="text" class="data_input"
-                                name="urine_rbc">mg/dl</span>
+                        <label for="urine_rbc">RBC:</label><span><input value="<?php echo ($row['urine_rbc']) ?>"
+                                type="text" class="data_input" name="urine_rbc">mg/dl</span>
                         <text class="ref_value"></text>
-                        <label for="urine_pus_cell">Pus Cell:</label><span><input type="text" class="data_input"
+                        <label for="urine_pus_cell">Pus Cell:</label><span><input
+                                value="<?php echo ($row['urine_pus_cell']) ?>" type="text" class="data_input"
                                 name="urine_pus_cell">mg/dl</span>
                         <text class="ref_value"></text>
-                        <label for="epithelial_cell">Epithelial Cell:</label><span><input type="text" class="data_input"
+                        <label for="epithelial_cell">Epithelial Cell:</label><span><input
+                                value="<?php echo ($row['epithelial_cell']) ?>" type="text" class="data_input"
                                 name="epithelial_cell">mg/dl</span>
                         <text class="ref_value"></text>
-                        <label for="ketone_body">Ketone Body:</label><span><input type="text" class="data_input"
+                        <label for="ketone_body">Ketone Body:</label><span><input
+                                value="<?php echo ($row['ketone_body']) ?>" type="text" class="data_input"
                                 name="ketone_body">mg/dl</span>
                         <text class="ref_value"></text>
-                        <label for="casts">Casts:</label><span><input type="text" class="data_input"
-                                name="casts">mg/dl</span>
+                        <label for="casts">Casts:</label><span><input value="<?php echo ($row['casts']) ?>" type="text"
+                                class="data_input" name="casts">mg/dl</span>
                         <text class="ref_value"></text>
-                        <label for="ua_crystals">U/A Crystals:</label><span><input type="text" class="data_input"
+                        <label for="ua_crystals">U/A Crystals:</label><span><input
+                                value="<?php echo ($row['ua_crystals']) ?>" type="text" class="data_input"
                                 name="ua_crystals">mg/dl</span>
                         <text class="ref_value"></text>
-                        <label for="urates">Urates:</label><span><input type="text" class="data_input"
-                                name="urates">mg/dl</span>
+                        <label for="urates">Urates:</label><span><input value="<?php echo ($row['urates']) ?>"
+                                type="text" class="data_input" name="urates">mg/dl</span>
                         <text class="ref_value"></text>
-                        <label for="t_vaginalis">T. Vaginalis:</label><span><input type="text" class="data_input"
+                        <label for="t_vaginalis">T. Vaginalis:</label><span><input
+                                value="<?php echo ($row['t_vaginalis']) ?>" type="text" class="data_input"
                                 name="t_vaginalis">mg/dl</span>
                         <text class="ref_value"></text>
                     </div>
