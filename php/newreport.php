@@ -99,7 +99,6 @@ if (isset($_POST['submit'])) {
 	<link rel="icon" type="image/png" sizes="16x16" href="../icons/favicon-16x16.png" />
 	<link rel="manifest" href="../icons/site.webmanifest" />
 	<script src="../scripts/newreport.js"></script>
-	<script src='../scripts/null.js'></script>
 	<title>Create New Report</title>
 	<link rel="stylesheet" href="../css/newreport.css" />
 </head>

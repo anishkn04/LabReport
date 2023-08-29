@@ -27,3 +27,35 @@ function hide(id) {
         }
     }
 }
+
+function changeAbout(id){
+    button = document.getElementById(id);
+    phoneNum = document.getElementById("number");
+    facebook = document.getElementById("facebook");
+    if(id=="anish"){
+        phoneNum.innerText = "9869377340";
+        phoneNum.href = "https://wa.me/9779869377340";
+        facebook.innerText = "Anish Neupane";
+        facebook.href = "https://www.facebook.com/anish.neupane.04/"
+        button.style = "background: #758fec; color: #fff;";
+        document.getElementById("prayojan").style = "background: #fff; color: #000;";
+    }else{
+        phoneNum.innerText = "9805120678";
+        phoneNum.href = "https://wa.me/9779805120678";
+        facebook.innerText = "Prayojan Puri";
+        facebook.href = "https://www.facebook.com/profile.php?id=100022565495098"
+        button.style = "background: #758fec; color: #fff;";
+        document.getElementById("anish").style = "background: #fff; color: #000;";
+    }
+}
+
+function nullCheck(){
+    inputs = document.getElementsByClassName("data_input");
+    range = inputs.length;
+    console.log(range);
+    for(i=0;i<range;i++){
+        if(inputs[i].value == ""){
+            inputs[i].value = "--";
+        }
+    }
+}
