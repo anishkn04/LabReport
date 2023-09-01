@@ -17,7 +17,7 @@ if (isset($_POST['submit'])) {
         echo($_SESSION['username']);
         header("Location: ../index.php");
     } else {
-        echo ("<script>alert('Login Failed!')</script>");
+        echo ("<script>alert('Incorrect Username or Password!')</script>");
     }
 }
 ?>

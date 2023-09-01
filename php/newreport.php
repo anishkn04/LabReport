@@ -117,16 +117,14 @@ if (isset($_POST['submit'])) {
 					<label for="report_id" class="d_label">Lab No.: </label><input type="text" name="report_id"
 						id="report_id" />
 					<label for="age" class="d_label">Age: </label><input type="text" name="age" id="age" />
-					<label for="rec_on" class="d_label">Received on: </label><input type="date" name="rec_on"
-						id="rec_on" />
+					<label for="rec_on" class="d_label">Received on: </label><input type="date" name="rec_on" value="" id="rec_on" onchange="changeMin()"/>
 					<label for="sex" class="d_label">Sex: </label>
 					<select name="sex" id="sex">
 						<option value="Male">Male</option>
 						<option value="Female">Female</option>
 						<option value="">None</option>
 					</select>
-					<label for="rep_on" class="d_label">Report on: </label><input type="date" name="rep_on"
-						id="rep_on" />
+					<label for="rep_on" class="d_label">Report on: </label><input type="date" name="rep_on" id="rep_on" />
 					<label for="ref_by" class="d_label">Referred By:
 					</label>
 					<select name="ref_by" id="ref_by">
