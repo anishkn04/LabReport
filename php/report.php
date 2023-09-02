@@ -21,6 +21,9 @@ if (isset($_POST['update'])) {
     $rec_on    = $_POST['rec_on'];
     $rep_on    = $_POST['rep_on'];
     $ref_by    = $_POST['ref_by'];
+    foreach($_POST['specimen'] as $specimen){
+		$specimen = $specimen."-";
+	}
 
     $sugar_fasting = $_POST['sugar_fasting'];
     $sugar_pp      = $_POST['sugar_pp'];
@@ -60,7 +63,7 @@ if (isset($_POST['update'])) {
     $t_vaginalis     = $_POST['t_vaginalis'];
 
     $insert_sql1   = "UPDATE `patient`
-    SET `name` = '$name',`age` = '$age',`sex` = '$sex',`referred_by` = '$ref_by',`received_on` = '$rec_on',`report_on` = '$rep_on'
+    SET `name` = '$name',`age` = '$age',`sex` = '$sex',`referred_by` = '$ref_by',`received_on` = '$rec_on',`report_on` = '$rep_on' ,`specimen` = '$specimen'
     WHERE `patient`.`report_id` = '$report_id';";
     $insert_query1 = mysqli_query($conn, $insert_sql1);
     if (!$insert_query1)
@@ -169,7 +172,7 @@ if (isset($_POST['update'])) {
                             echo ("selected");
                         } ?>>PH5</option>
                     </select>
-                    <!-- <label for="specimen[]" class="d_label">Specimen: </label>
+                    <label for="specimen[]" class="d_label">Specimen: </label>
                     <div class="specimen-boxes">
                         <input type="checkbox" name="specimen[]" id="blood_s" value="blood" /><label
                             for="blood">Blood</label>
@@ -177,7 +180,7 @@ if (isset($_POST['update'])) {
                             for="urine">Urine</label>
                         <input type="checkbox" name="specimen[]" id="stool_s" value="stool" /><label
                             for="stool">Stool</label>
-                    </div> -->
+                    </div>
                 </div>
                 <div class="choices">
                     <label for="c_biochem">Biochemistry Test</label><input name="test_list" type="checkbox"

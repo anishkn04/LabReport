@@ -24,7 +24,7 @@ if(isset($_GET['report_id'])){
         die("Unable to delete data!");
     }else{
         echo("Deleted Succesfully!");
-        header("Location: ../index.php");
+        header("Location: ../php/viewreport.php");
     }
 }else{echo("Something went wrong!");}
 

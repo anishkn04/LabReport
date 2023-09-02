@@ -47,7 +47,7 @@
             <span><?php echo($row['received_on']); ?></span>
             <span><?php echo($row['report_on']); ?></span>
             <span>
-                <a class="table_link" href="../php/report.php?report_id=<?php echo($row['report_id']) ?>">View Report</a>
+                <a class="table_link" href="../php/report.php?report_id=<?php echo($row['report_id']) ?>">Edit</a>
                 <a class="table_link" href="../php/delete.php?report_id=<?php echo($row['report_id']) ?>">Delete</a>
             </span>
         <?php }
