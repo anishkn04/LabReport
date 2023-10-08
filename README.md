@@ -18,4 +18,4 @@ Since this is my first web project (_Almost First_) there are a lot of caveats, 
 
 **Currently working on?**
 
-_The project has been put on hold temporarily due to my exams._
+Maybe leaving it as it is and shifting to React/Node with the mentioned feature?
