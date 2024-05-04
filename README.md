@@ -1,4 +1,4 @@
-**`Currently Halted!`**
+**`Project Discarded, soon to be released in a different stack`**
 
 **About this project**
 
